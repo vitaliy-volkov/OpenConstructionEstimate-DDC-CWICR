@@ -47,19 +47,19 @@ print(results[['rate_code', 'rate_original_name', 'total_cost_per_position']])
 
 ## Languages
 
-| Code | Language | Collection |
-|------|----------|------------|
-| EN | English | `ddc_cwicr_en` |
-| DE | German | `ddc_cwicr_de` |
-| FR | French | `ddc_cwicr_fr` |
-| ES | Spanish | `ddc_cwicr_es` |
-| RU | Russian | `ddc_cwicr_ru` |
-| ZH | Chinese | `ddc_cwicr_zh` |
-| AR | Arabic | `ddc_cwicr_ar` |
-| PT | Portuguese | `ddc_cwicr_pt` |
-| HI | Hindi | `ddc_cwicr_hi` |
-| US | English (USA) | `ddc_cwicr_us` |
-| UK | English (UK) | `ddc_cwicr_uk` |
+| Code | Language | Collection | Snapshot Path |
+|------|----------|------------|---------------|
+| EN | English | `ddc_en_toronto` | `EN___DDC_CWICR/EN_TORONTO_workitems_costs_resources_EMBEDDINGS_3072_DDC_CWICR.snapshot` |
+| DE | German | `ddc_de_berlin` | `DE___DDC_CWICR/DE_BERLIN_workitems_costs_resources_EMBEDDINGS_3072_DDC_CWICR.snapshot` |
+| FR | French | `ddc_fr_paris` | `FR___DDC_CWICR/FR_PARIS_workitems_costs_resources_EMBEDDINGS_3072_DDC_CWICR.snapshot` |
+| ES | Spanish | `ddc_sp_barcelona` | `ES___DDC_CWICR/ES_BARCELONA_workitems_costs_resources_EMBEDDINGS_3072_DDC_CWICR.snapshot` |
+| RU | Russian | `ddc_ru_stpetersburg` | `RU___DDC_CWICR/RU_STPETERSBURG_workitems_costs_resources_EMBEDDINGS_3072_DDC_CWICR.snapshot` |
+| ZH | Chinese | `ddc_zh_shanghai` | `ZH___DDC_CWICR/ZH_SHANGHAI_workitems_costs_resources_EMBEDDINGS_3072_DDC_CWICR.snapshot` |
+| AR | Arabic | `ddc_ar_dubai` | `AR___DDC_CWICR/AR_DUBAI_workitems_costs_resources_EMBEDDINGS_3072_DDC_CWICR.snapshot` |
+| PT | Portuguese | `ddc_pt_saopaulo` | `PT___DDC_CWICR/PT_SAOPAULO_workitems_costs_resources_EMBEDDINGS_3072_DDC_CWICR.snapshot` |
+| HI | Hindi | `ddc_hi_mumbai` | `HI___DDC_CWICR/HI_MUMBAI_workitems_costs_resources_EMBEDDINGS_3072_DDC_CWICR.snapshot` |
+| US | English (USA) | `ddc_usa_usd` | `US___DDC_CWICR/US_USD_workitems_costs_resources_EMBEDDINGS_3072_DDC_CWICR.snapshot` |
+| UK | English (UK) | `ddc_uk_gbp` | `UK___DDC_CWICR/UK_GBP_workitems_costs_resources_EMBEDDINGS_3072_DDC_CWICR.snapshot` |
 
 ## Semantic Search
 
@@ -76,7 +76,7 @@ embedding = openai.embeddings.create(
 # Search
 client = QdrantClient("localhost", port=6333)
 results = client.search(
-    collection_name="ddc_cwicr_en",
+    collection_name="ddc_en_toronto",
     query_vector=embedding,
     limit=5
 )
@@ -106,4 +106,4 @@ for code, qty in quantities.items():
 ## Links
 
 - Demo: [openconstructionestimate.com](https://openconstructionestimate.com)
-- Releases: [GitHub Releases](https://github.com/datadrivenconstruction/OpenConstructionEstimate-DDC-CWICR/releases)
+- Data & Snapshots: Stored directly in the repository language folders via Git LFS (e.g., `EN___DDC_CWICR/`)

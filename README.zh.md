@@ -151,7 +151,7 @@
 
 ### 🔍 向量数据库
 - [向量数据库](#向量数据库) — 使用 Qdrant 进行语义搜索
-- [发布版本](#发布版本) — 下载快照
+- [Qdrant 向量数据库快照](#qdrant-向量数据库快照) — 下载快照
 - [集合](#集合) — 11 种语言集合
 - [Docker 部署](#docker-部署) — 自托管设置
 
@@ -407,7 +407,7 @@ client = QdrantClient("your-qdrant-instance", port=6333)
 
 # 语义搜索
 results = client.search(
-    collection_name="ddc_cwicr_zh",  # 或 en, de, ru 等
+    collection_name="ddc_zh_shanghai",  # 或 ddc_en_toronto, ddc_de_berlin, ddc_ru_stpetersburg 等
     query_vector=your_embedding,
     limit=10
 )
@@ -1085,12 +1085,12 @@ n8n → 新工作流 → 从文件导入 → 选择 JSON
 
 ### 步骤 3：将 DDC CWICR 加载到 Qdrant
 
-从[发布版本](#发布版本)下载快照并导入：
+从对应的语言文件夹下载快照（通过 Git LFS 存储）并导入：
 
 ```bash
-curl -X POST "http://localhost:6333/collections/ddc_cwicr_zh/snapshots/upload" \
+curl -X POST "http://localhost:6333/collections/ddc_zh_shanghai/snapshots/upload" \
   -H "Content-Type: multipart/form-data" \
-  -F "snapshot=@ZH_SHANGHAI_workitems_EMBEDDINGS_3072_DDC.snapshot"
+  -F "snapshot=@EN___DDC_CWICR/EN_TORONTO_workitems_costs_resources_EMBEDDINGS_3072_DDC_CWICR.snapshot"
 ```
 
 ### 步骤 4：激活并测试
@@ -1140,19 +1140,19 @@ environment:
 
 ## 🌍 支持的语言和价格级别
 
-| 代码  | 语言    | 价格级别     | 货币 | Qdrant 集合   |
-|-------|-------------|-----------------|----------|---------------------|
-| `AR`  | 阿拉伯语      | 迪拜           | AED      | `ddc_cwicr_ar`      |
-| `DE`  | 德语      | 柏林          | EUR      | `ddc_cwicr_de`      |
-| `EN`  | 英语     | 多伦多         | CAD      | `ddc_cwicr_en`      |
-| `ES`  | 西班牙语     | 巴塞罗那       | EUR      | `ddc_cwicr_es`      |
-| `FR`  | 法语      | 巴黎           | EUR      | `ddc_cwicr_fr`      |
-| `HI`  | 印地语       | 孟买          | INR      | `ddc_cwicr_hi`      |
-| `PT`  | 葡萄牙语  | 圣保罗       | BRL      | `ddc_cwicr_pt`      |
-| `RU`  | 俄语     | 圣彼得堡  | RUB      | `ddc_cwicr_ru`      |
-| `ZH`  | 中文     | 上海        | CNY      | `ddc_cwicr_zh`      |
-| `US`  | 英语     | 美国             | USD      | `ddc_cwicr_us`      |
-| `UK`  | 英语     | 英国              | GBP      | `ddc_cwicr_uk`      |
+| 代码  | 语言    | 价格级别     | 货币 | Qdrant 集合               |
+|-------|-------------|-----------------|----------|---------------------------|
+| `AR`  | 阿拉伯语      | 迪拜           | AED      | `ddc_ar_dubai`            |
+| `DE`  | 德语      | 柏林          | EUR      | `ddc_de_berlin`           |
+| `EN`  | 英语     | 多伦多         | CAD      | `ddc_en_toronto`          |
+| `ES`  | 西班牙语     | 巴塞罗那       | EUR      | `ddc_sp_barcelona`        |
+| `FR`  | 法语      | 巴黎           | EUR      | `ddc_fr_paris`            |
+| `HI`  | 印地语       | 孟买          | INR      | `ddc_hi_mumbai`           |
+| `PT`  | 葡萄牙语  | 圣保罗       | BRL      | `ddc_pt_saopaulo`         |
+| `RU`  | 俄语     | 圣彼得堡  | RUB      | `ddc_ru_stpetersburg`     |
+| `ZH`  | 中文     | 上海        | CNY      | `ddc_zh_shanghai`         |
+| `US`  | 英语     | 美国             | USD      | `ddc_usa_usd`             |
+| `UK`  | 英语     | 英国              | GBP      | `ddc_uk_gbp`              |
 
 ---
 
@@ -1243,29 +1243,25 @@ project_YYYY-MM-DD.xls    ← Excel 兼容电子表格
 
 ---
 
-### 发布版本
+### Qdrant 向量数据库快照
 
-从 [GitHub Releases](https://github.com/datadrivenconstruction/OpenConstructionEstimate-DDC-CWICR/releases) 下载 QDRANT 和 CSV 数据集（大于 1GB 的文件）。
+快照现在直接存储在本仓库对应的语言文件夹中（通过 Git LFS 存储），不再存储在 GitHub Releases 中。
 
-| 语言        | 地区         | CSV 文件             | Qdrant 快照                            |
-|-----------------|----------------|-----------------------|--------------------------------------------|
-| 🇸🇦 阿拉伯语      | 迪拜          | `AR_DUBAI_*.csv`      | `AR_DUBAI_*_EMBEDDINGS_3072_DDC.snapshot`   |
-| 🇨🇳 中文     | 上海       | `ZH_SHANGHAI_*.csv`   | `ZH_SHANGHAI_*_EMBEDDINGS_3072_DDC.snapshot`|
-| 🇩🇪 德语      | 柏林         | `DE_BERLIN_*.csv`     | `DE_BERLIN_*_EMBEDDINGS_3072_DDC.snapshot`  |
-| 🇬🇧 英语     | 多伦多        | `EN_TORONTO_*.csv`    | `EN_TORONTO_*_EMBEDDINGS_3072_DDC.snapshot` |
-| 🇪🇸 西班牙语     | 巴塞罗那      | `ES_BARCELONA_*.csv`  | `ES_BARCELONA_*_EMBEDDINGS_3072_DDC.snapshot`|
-| 🇫🇷 法语      | 巴黎          | `FR_PARIS_*.csv`      | `FR_PARIS_*_EMBEDDINGS_3072_DDC.snapshot`   |
-| 🇮🇳 印地语       | 孟买         | `HI_MUMBAI_*.csv`     | `HI_MUMBAI_*_EMBEDDINGS_3072_DDC.snapshot`  |
-| 🇧🇷 葡萄牙语  | 圣保罗 | `PT_SAOPAULO_*.csv`   | `PT_SAOPAULO_*_EMBEDDINGS_3072_DDC.snapshot`|
-| 🇷🇺 俄语     | 圣彼得堡 | `RU_SPB_*.csv`        | `RU_SPB_*_EMBEDDINGS_3072_DDC.snapshot`     |
-
-<a href="https://github.com/datadrivenconstruction/OpenConstructionEstimate-DDC-CWICR/releases/tag/v0.1.0">
-  <img src="https://img.shields.io/badge/📥_下载_v0.1.0-GitHub_Releases-181717?style=for-the-badge&logo=github" alt="下载 v0.1.0">
-</a>
+| 语言        | 地区         | 快照文件（在语言文件夹中）                                                              |
+|-----------------|----------------|-------------------------------------------------------------------------------------------|
+| 🇸🇦 阿拉伯语      | 迪拜          | `AR___DDC_CWICR/AR_DUBAI_workitems_costs_resources_EMBEDDINGS_3072_DDC_CWICR.snapshot`    |
+| 🇨🇳 中文     | 上海       | `ZH___DDC_CWICR/ZH_SHANGHAI_workitems_costs_resources_EMBEDDINGS_3072_DDC_CWICR.snapshot` |
+| 🇩🇪 德语      | 柏林         | `DE___DDC_CWICR/DE_BERLIN_workitems_costs_resources_EMBEDDINGS_3072_DDC_CWICR.snapshot`   |
+| 🇬🇧 英语     | 多伦多        | `EN___DDC_CWICR/EN_TORONTO_workitems_costs_resources_EMBEDDINGS_3072_DDC_CWICR.snapshot`  |
+| 🇪🇸 西班牙语     | 巴塞罗那      | `ES___DDC_CWICR/ES_BARCELONA_workitems_costs_resources_EMBEDDINGS_3072_DDC_CWICR.snapshot`|
+| 🇫🇷 法语      | 巴黎          | `FR___DDC_CWICR/FR_PARIS_workitems_costs_resources_EMBEDDINGS_3072_DDC_CWICR.snapshot`    |
+| 🇮🇳 印地语       | 孟买         | `HI___DDC_CWICR/HI_MUMBAI_workitems_costs_resources_EMBEDDINGS_3072_DDC_CWICR.snapshot`   |
+| 🇧🇷 葡萄牙语  | 圣保罗 | `PT___DDC_CWICR/PT_SAOPAULO_workitems_costs_resources_EMBEDDINGS_3072_DDC_CWICR.snapshot` |
+| 🇷🇺 俄语     | 圣彼得堡 | `RU___DDC_CWICR/RU_STPETERSBURG_workitems_costs_resources_EMBEDDINGS_3072_DDC_CWICR.snapshot` |
 
 ### 集合
 
-🇸🇦 `ddc_cwicr_ar`（阿拉伯语） · 🇨🇳 `ddc_cwicr_zh`（中文） · 🇩🇪 `ddc_cwicr_de`（德语） · 🇬🇧 `ddc_cwicr_en`（英语） · 🇪🇸 `ddc_cwicr_es`（西班牙语） · 🇫🇷 `ddc_cwicr_fr`（法语） · 🇮🇳 `ddc_cwicr_hi`（印地语） · 🇧🇷 `ddc_cwicr_pt`（葡萄牙语） · 🇷🇺 `ddc_cwicr_ru`（俄语） · 🇺🇸 `ddc_cwicr_us`（美国） · 🇬🇧 `ddc_cwicr_uk`（英国）
+🇸🇦 `ddc_ar_dubai`（阿拉伯语） · 🇨🇳 `ddc_zh_shanghai`（中文） · 🇩🇪 `ddc_de_berlin`（德语） · 🇬🇧 `ddc_en_toronto`（英语） · 🇪🇸 `ddc_sp_barcelona`（西班牙语） · 🇫🇷 `ddc_fr_paris`（法语） · 🇮🇳 `ddc_hi_mumbai`（印地语） · 🇧🇷 `ddc_pt_saopaulo`（葡萄牙语） · 🇷🇺 `ddc_ru_stpetersburg`（俄语） · 🇺🇸 `ddc_usa_usd`（美国） · 🇬🇧 `ddc_uk_gbp`（英国）
 
 每个集合包含 **55,719 个向量**，带有完整的负载元数据。
 
@@ -1296,9 +1292,9 @@ volumes:
 docker-compose up -d
 
 # 导入快照
-curl -X POST "http://localhost:6333/collections/ddc_cwicr_zh/snapshots/upload" \
+curl -X POST "http://localhost:6333/collections/ddc_zh_shanghai/snapshots/upload" \
   -H "Content-Type: multipart/form-data" \
-  -F "snapshot=@ddc_cwicr_zh.snapshot"
+  -F "snapshot=@ZH___DDC_CWICR/ZH_SHANGHAI_workitems_costs_resources_EMBEDDINGS_3072_DDC_CWICR.snapshot"
 
 # 仪表板：http://localhost:6333/dashboard
 ```
@@ -1441,7 +1437,7 @@ embedding = openai.embeddings.create(
 ).data[0].embedding
 
 results = client.search(
-    collection_name="ddc_cwicr_zh",
+    collection_name="ddc_zh_shanghai",
     query_vector=embedding,
     limit=5
 )
@@ -1457,7 +1453,7 @@ from qdrant_client.models import Filter, FieldCondition, MatchValue, Range
 
 # 按部门
 results = client.search(
-    collection_name="ddc_cwicr_zh",
+    collection_name="ddc_zh_shanghai",
     query_vector=embedding,
     query_filter=Filter(must=[
         FieldCondition(key="department_name", match=MatchValue(value="混凝土和钢筋混凝土"))
@@ -1467,7 +1463,7 @@ results = client.search(
 
 # 按价格范围
 results = client.search(
-    collection_name="ddc_cwicr_zh",
+    collection_name="ddc_zh_shanghai",
     query_vector=embedding,
     query_filter=Filter(must=[
         FieldCondition(key="price_est_median", range=Range(gte=1000, lte=50000))

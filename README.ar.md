@@ -154,7 +154,7 @@
 
 ### 🔍 قاعدة البيانات المتجهة
 - [قاعدة البيانات المتجهة](#قاعدة-البيانات-المتجهة) — البحث الدلالي مع Qdrant
-- [الإصدارات](#الإصدارات) — تحميل اللقطات
+- [لقطات Qdrant](#لقطات-قاعدة-بيانات-qdrant-المتجهة) — تحميل اللقطات
 - [المجموعات](#المجموعات) — 11 مجموعة لغوية
 - [نشر Docker](#نشر-docker) — إعداد مستضاف ذاتياً
 
@@ -438,7 +438,7 @@ client = QdrantClient("your-qdrant-instance", port=6333)
 
 # البحث الدلالي
 results = client.search(
-    collection_name="ddc_cwicr_ar",  # أو en، de، ru، zh، إلخ
+    collection_name="ddc_ar_dubai",  # أو en، de، ru، zh، إلخ
     query_vector=your_embedding,
     limit=10
 )
@@ -841,14 +841,14 @@ n8n → سير عمل جديد → استيراد من ملف → اختر JSON
 
 ### الخطوة 3: تحميل DDC CWICR إلى Qdrant
 
-حمّل اللقطة من [الإصدارات](#الإصدارات) واستوردها:
+حمّل اللقطة من مجلد اللغة المقابل واستوردها:
 
 </div>
 
 ```bash
-curl -X POST "http://localhost:6333/collections/ddc_cwicr_ar/snapshots/upload" \
+curl -X POST "http://localhost:6333/collections/ddc_ar_dubai/snapshots/upload" \
   -H "Content-Type: multipart/form-data" \
-  -F "snapshot=@AR_DUBAI_workitems_EMBEDDINGS_3072_DDC.snapshot"
+  -F "snapshot=@EN___DDC_CWICR/EN_TORONTO_workitems_costs_resources_EMBEDDINGS_3072_DDC_CWICR.snapshot"
 ```
 
 <div dir="rtl">
@@ -918,17 +918,17 @@ environment:
 
 | الرمز | اللغة | مستوى السعر | العملة | مجموعة Qdrant |
 |-------|-------|-------------|--------|---------------|
-| `AR` | العربية | دبي | AED | `ddc_cwicr_ar` |
-| `DE` | الألمانية | برلين | EUR | `ddc_cwicr_de` |
-| `EN` | الإنجليزية | تورونتو | CAD | `ddc_cwicr_en` |
-| `ES` | الإسبانية | برشلونة | EUR | `ddc_cwicr_es` |
-| `FR` | الفرنسية | باريس | EUR | `ddc_cwicr_fr` |
-| `HI` | الهندية | مومباي | INR | `ddc_cwicr_hi` |
-| `PT` | البرتغالية | ساو باولو | BRL | `ddc_cwicr_pt` |
-| `RU` | الروسية | سانت بطرسبرغ | RUB | `ddc_cwicr_ru` |
-| `ZH` | الصينية | شنغهاي | CNY | `ddc_cwicr_zh` |
-| `US` | الإنجليزية | USA | USD | `ddc_cwicr_us` |
-| `UK` | الإنجليزية | UK | GBP | `ddc_cwicr_uk` |
+| `AR` | العربية | دبي | AED | `ddc_ar_dubai` |
+| `DE` | الألمانية | برلين | EUR | `ddc_de_berlin` |
+| `EN` | الإنجليزية | تورونتو | CAD | `ddc_en_toronto` |
+| `ES` | الإسبانية | برشلونة | EUR | `ddc_sp_barcelona` |
+| `FR` | الفرنسية | باريس | EUR | `ddc_fr_paris` |
+| `HI` | الهندية | مومباي | INR | `ddc_hi_mumbai` |
+| `PT` | البرتغالية | ساو باولو | BRL | `ddc_pt_saopaulo` |
+| `RU` | الروسية | سانت بطرسبرغ | RUB | `ddc_ru_stpetersburg` |
+| `ZH` | الصينية | شنغهاي | CNY | `ddc_zh_shanghai` |
+| `US` | الإنجليزية | USA | USD | `ddc_usa_usd` |
+| `UK` | الإنجليزية | UK | GBP | `ddc_uk_gbp` |
 
 ---
 
@@ -1029,29 +1029,25 @@ project_YYYY-MM-DD.xls    ← جدول بيانات متوافق مع Excel
 
 ---
 
-### الإصدارات
+### لقطات قاعدة بيانات Qdrant المتجهة
 
-حمّل مجموعات بيانات QDRANT وCSV (ملفات أكبر من 1 جيجابايت) من [إصدارات GitHub](https://github.com/datadrivenconstruction/OpenConstructionEstimate-DDC-CWICR/releases).
+اللقطات موجودة في مجلدات اللغة المقابلة في هذا المستودع (مخزنة عبر Git LFS).
 
-| اللغة | المنطقة | ملفات CSV | لقطة Qdrant |
-|-------|---------|-----------|-------------|
-| 🇸🇦 العربية | دبي | `AR_DUBAI_*.csv` | `AR_DUBAI_*_EMBEDDINGS_3072_DDC.snapshot` |
-| 🇨🇳 الصينية | شنغهاي | `ZH_SHANGHAI_*.csv` | `ZH_SHANGHAI_*_EMBEDDINGS_3072_DDC.snapshot` |
-| 🇩🇪 الألمانية | برلين | `DE_BERLIN_*.csv` | `DE_BERLIN_*_EMBEDDINGS_3072_DDC.snapshot` |
-| 🇬🇧 الإنجليزية | تورونتو | `EN_TORONTO_*.csv` | `EN_TORONTO_*_EMBEDDINGS_3072_DDC.snapshot` |
-| 🇪🇸 الإسبانية | برشلونة | `ES_BARCELONA_*.csv` | `ES_BARCELONA_*_EMBEDDINGS_3072_DDC.snapshot` |
-| 🇫🇷 الفرنسية | باريس | `FR_PARIS_*.csv` | `FR_PARIS_*_EMBEDDINGS_3072_DDC.snapshot` |
-| 🇮🇳 الهندية | مومباي | `HI_MUMBAI_*.csv` | `HI_MUMBAI_*_EMBEDDINGS_3072_DDC.snapshot` |
-| 🇧🇷 البرتغالية | ساو باولو | `PT_SAOPAULO_*.csv` | `PT_SAOPAULO_*_EMBEDDINGS_3072_DDC.snapshot` |
-| 🇷🇺 الروسية | سانت بطرسبرغ | `RU_SPB_*.csv` | `RU_SPB_*_EMBEDDINGS_3072_DDC.snapshot` |
-
-<a href="https://github.com/datadrivenconstruction/OpenConstructionEstimate-DDC-CWICR/releases/tag/v0.1.0">
-  <img src="https://img.shields.io/badge/📥_تحميل_v0.1.0-GitHub_Releases-181717?style=for-the-badge&logo=github" alt="تحميل v0.1.0">
-</a>
+| اللغة | المنطقة | لقطة Qdrant |
+|-------|---------|-------------|
+| 🇸🇦 العربية | دبي | `AR___DDC_CWICR/AR_DUBAI_workitems_costs_resources_EMBEDDINGS_3072_DDC_CWICR.snapshot` |
+| 🇨🇳 الصينية | شنغهاي | `ZH___DDC_CWICR/ZH_SHANGHAI_workitems_costs_resources_EMBEDDINGS_3072_DDC_CWICR.snapshot` |
+| 🇩🇪 الألمانية | برلين | `DE___DDC_CWICR/DE_BERLIN_workitems_costs_resources_EMBEDDINGS_3072_DDC_CWICR.snapshot` |
+| 🇬🇧 الإنجليزية | تورونتو | `EN___DDC_CWICR/EN_TORONTO_workitems_costs_resources_EMBEDDINGS_3072_DDC_CWICR.snapshot` |
+| 🇪🇸 الإسبانية | برشلونة | `ES___DDC_CWICR/ES_BARCELONA_workitems_costs_resources_EMBEDDINGS_3072_DDC_CWICR.snapshot` |
+| 🇫🇷 الفرنسية | باريس | `FR___DDC_CWICR/FR_PARIS_workitems_costs_resources_EMBEDDINGS_3072_DDC_CWICR.snapshot` |
+| 🇮🇳 الهندية | مومباي | `HI___DDC_CWICR/HI_MUMBAI_workitems_costs_resources_EMBEDDINGS_3072_DDC_CWICR.snapshot` |
+| 🇧🇷 البرتغالية | ساو باولو | `PT___DDC_CWICR/PT_SAOPAULO_workitems_costs_resources_EMBEDDINGS_3072_DDC_CWICR.snapshot` |
+| 🇷🇺 الروسية | سانت بطرسبرغ | `RU___DDC_CWICR/RU_SPB_workitems_costs_resources_EMBEDDINGS_3072_DDC_CWICR.snapshot` |
 
 ### المجموعات
 
-🇸🇦 `ddc_cwicr_ar` (العربية) · 🇨🇳 `ddc_cwicr_zh` (الصينية) · 🇩🇪 `ddc_cwicr_de` (الألمانية) · 🇬🇧 `ddc_cwicr_en` (الإنجليزية) · 🇪🇸 `ddc_cwicr_es` (الإسبانية) · 🇫🇷 `ddc_cwicr_fr` (الفرنسية) · 🇮🇳 `ddc_cwicr_hi` (الهندية) · 🇧🇷 `ddc_cwicr_pt` (البرتغالية) · 🇷🇺 `ddc_cwicr_ru` (الروسية) · 🇺🇸 `ddc_cwicr_us` (USA) · 🇬🇧 `ddc_cwicr_uk` (UK)
+🇸🇦 `ddc_ar_dubai` (العربية) · 🇨🇳 `ddc_zh_shanghai` (الصينية) · 🇩🇪 `ddc_de_berlin` (الألمانية) · 🇬🇧 `ddc_en_toronto` (الإنجليزية) · 🇪🇸 `ddc_sp_barcelona` (الإسبانية) · 🇫🇷 `ddc_fr_paris` (الفرنسية) · 🇮🇳 `ddc_hi_mumbai` (الهندية) · 🇧🇷 `ddc_pt_saopaulo` (البرتغالية) · 🇷🇺 `ddc_ru_stpetersburg` (الروسية) · 🇺🇸 `ddc_usa_usd` (USA) · 🇬🇧 `ddc_uk_gbp` (UK)
 
 كل مجموعة تحتوي **55,719 متجه** مع بيانات وصفية كاملة.
 
@@ -1084,9 +1080,9 @@ volumes:
 docker-compose up -d
 
 # استيراد اللقطة
-curl -X POST "http://localhost:6333/collections/ddc_cwicr_ar/snapshots/upload" \
+curl -X POST "http://localhost:6333/collections/ddc_ar_dubai/snapshots/upload" \
   -H "Content-Type: multipart/form-data" \
-  -F "snapshot=@ddc_cwicr_ar.snapshot"
+  -F "snapshot=@AR___DDC_CWICR/AR_DUBAI_workitems_costs_resources_EMBEDDINGS_3072_DDC_CWICR.snapshot"
 
 # لوحة المعلومات: http://localhost:6333/dashboard
 ```
@@ -1247,7 +1243,7 @@ embedding = openai.embeddings.create(
 ).data[0].embedding
 
 results = client.search(
-    collection_name="ddc_cwicr_ar",
+    collection_name="ddc_ar_dubai",
     query_vector=embedding,
     limit=5
 )
@@ -1263,7 +1259,7 @@ from qdrant_client.models import Filter, FieldCondition, MatchValue, Range
 
 # حسب القسم
 results = client.search(
-    collection_name="ddc_cwicr_ar",
+    collection_name="ddc_ar_dubai",
     query_vector=embedding,
     query_filter=Filter(must=[
         FieldCondition(key="department_name", match=MatchValue(value="الخرسانة والخرسانة المسلحة"))
@@ -1273,7 +1269,7 @@ results = client.search(
 
 # حسب نطاق السعر
 results = client.search(
-    collection_name="ddc_cwicr_ar",
+    collection_name="ddc_ar_dubai",
     query_vector=embedding,
     query_filter=Filter(must=[
         FieldCondition(key="price_est_median", range=Range(gte=1000, lte=50000))

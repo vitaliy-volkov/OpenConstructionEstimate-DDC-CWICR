@@ -41,7 +41,7 @@ def get_embedding(text):
 # Search for similar work items
 client = QdrantClient("localhost", port=6333)
 results = client.search(
-    collection_name="ddc_cwicr_en",  # or ddc_cwicr_de, ddc_cwicr_ru, etc.
+    collection_name="ddc_en_toronto",  # or ddc_de_berlin, ddc_ru_stpetersburg, etc.
     query_vector=get_embedding("brick masonry wall"),
     limit=10
 )
@@ -129,19 +129,19 @@ print(f"  TOTAL: {item['total_cost_per_position']}")
 
 ## Qdrant Collections
 
-| Collection | Language | Region | Currency |
-|------------|----------|--------|----------|
-| `ddc_cwicr_ar` | Arabic | Dubai | AED |
-| `ddc_cwicr_zh` | Chinese | Shanghai | CNY |
-| `ddc_cwicr_de` | German | Berlin | EUR |
-| `ddc_cwicr_en` | English | Toronto | CAD |
-| `ddc_cwicr_es` | Spanish | Barcelona | EUR |
-| `ddc_cwicr_fr` | French | Paris | EUR |
-| `ddc_cwicr_hi` | Hindi | Mumbai | INR |
-| `ddc_cwicr_pt` | Portuguese | São Paulo | BRL |
-| `ddc_cwicr_ru` | Russian | St. Petersburg | RUB |
-| `ddc_cwicr_us` | English | USA | USD |
-| `ddc_cwicr_uk` | English | UK | GBP |
+| Collection | Language | Region | Currency | Snapshot Path |
+|------------|----------|--------|----------|---------------|
+| `ddc_ar_dubai` | Arabic | Dubai | AED | `AR___DDC_CWICR/AR_DUBAI_workitems_costs_resources_EMBEDDINGS_3072_DDC_CWICR.snapshot` |
+| `ddc_zh_shanghai` | Chinese | Shanghai | CNY | `ZH___DDC_CWICR/ZH_SHANGHAI_workitems_costs_resources_EMBEDDINGS_3072_DDC_CWICR.snapshot` |
+| `ddc_de_berlin` | German | Berlin | EUR | `DE___DDC_CWICR/DE_BERLIN_workitems_costs_resources_EMBEDDINGS_3072_DDC_CWICR.snapshot` |
+| `ddc_en_toronto` | English | Toronto | CAD | `EN___DDC_CWICR/EN_TORONTO_workitems_costs_resources_EMBEDDINGS_3072_DDC_CWICR.snapshot` |
+| `ddc_sp_barcelona` | Spanish | Barcelona | EUR | `ES___DDC_CWICR/ES_BARCELONA_workitems_costs_resources_EMBEDDINGS_3072_DDC_CWICR.snapshot` |
+| `ddc_fr_paris` | French | Paris | EUR | `FR___DDC_CWICR/FR_PARIS_workitems_costs_resources_EMBEDDINGS_3072_DDC_CWICR.snapshot` |
+| `ddc_hi_mumbai` | Hindi | Mumbai | INR | `HI___DDC_CWICR/HI_MUMBAI_workitems_costs_resources_EMBEDDINGS_3072_DDC_CWICR.snapshot` |
+| `ddc_pt_saopaulo` | Portuguese | São Paulo | BRL | `PT___DDC_CWICR/PT_SAOPAULO_workitems_costs_resources_EMBEDDINGS_3072_DDC_CWICR.snapshot` |
+| `ddc_ru_stpetersburg` | Russian | St. Petersburg | RUB | `RU___DDC_CWICR/RU_STPETERSBURG_workitems_costs_resources_EMBEDDINGS_3072_DDC_CWICR.snapshot` |
+| `ddc_usa_usd` | English | USA | USD | `US___DDC_CWICR/US_USD_workitems_costs_resources_EMBEDDINGS_3072_DDC_CWICR.snapshot` |
+| `ddc_uk_gbp` | English | UK | GBP | `UK___DDC_CWICR/UK_GBP_workitems_costs_resources_EMBEDDINGS_3072_DDC_CWICR.snapshot` |
 
 ## n8n Workflows
 
@@ -179,4 +179,4 @@ The repository includes ready-to-use n8n workflows:
 
 - **Live Demo**: [openconstructionestimate.com](https://openconstructionestimate.com)
 - **CAD/BIM Tools**: [cad2data Repository](https://github.com/datadrivenconstruction/cad2data-Revit-IFC-DWG-DGN-pipeline-with-conversion-validation-qto)
-- **Data Files**: See [Releases](https://github.com/datadrivenconstruction/OpenConstructionEstimate-DDC-CWICR/releases)
+- **Data & Snapshots**: Stored directly in the repository language folders via Git LFS (e.g., `EN___DDC_CWICR/`)

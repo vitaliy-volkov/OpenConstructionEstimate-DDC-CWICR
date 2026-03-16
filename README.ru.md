@@ -151,7 +151,7 @@
 
 ### 🔍 Векторная база данных
 - [Векторная БД](#векторная-база-данных) — Семантический поиск с Qdrant
-- [Релизы](#релизы) — Скачать снапшоты
+- [Снапшоты Qdrant](#снапшоты-qdrant-векторной-базы-данных) — Скачать снапшоты
 - [Коллекции](#коллекции) — 11 языковых коллекций
 - [Docker развёртывание](#docker-развёртывание) — Self-hosted установка
 
@@ -407,7 +407,7 @@ client = QdrantClient("your-qdrant-instance", port=6333)
 
 # Семантический поиск
 results = client.search(
-    collection_name="ddc_cwicr_ru",  # или en, de, zh и т.д.
+    collection_name="ddc_ru_stpetersburg",  # или en, de, zh и т.д.
     query_vector=your_embedding,
     limit=10
 )
@@ -818,9 +818,9 @@ n8n → New workflow → Import from File → Выберите JSON
 ### Шаг 3: Загрузка DDC CWICR в Qdrant
 
 ```bash
-curl -X POST "http://localhost:6333/collections/ddc_cwicr_ru/snapshots/upload" \
+curl -X POST "http://localhost:6333/collections/ddc_ru_stpetersburg/snapshots/upload" \
   -H "Content-Type: multipart/form-data" \
-  -F "snapshot=@RU_SPB_workitems_EMBEDDINGS_3072_DDC.snapshot"
+  -F "snapshot=@EN___DDC_CWICR/EN_TORONTO_workitems_costs_resources_EMBEDDINGS_3072_DDC_CWICR.snapshot"
 ```
 
 ### Шаг 4: Активация и тест
@@ -851,17 +851,17 @@ NODES_EXCLUDE=[]
 
 | Код | Язык | Уровень цен | Валюта | Qdrant коллекция |
 |-----|------|-------------|--------|------------------|
-| `AR` | Арабский | Дубай | AED | `ddc_cwicr_ar` |
-| `DE` | Немецкий | Берлин | EUR | `ddc_cwicr_de` |
-| `EN` | Английский | Торонто | CAD | `ddc_cwicr_en` |
-| `ES` | Испанский | Барселона | EUR | `ddc_cwicr_es` |
-| `FR` | Французский | Париж | EUR | `ddc_cwicr_fr` |
-| `HI` | Хинди | Мумбаи | INR | `ddc_cwicr_hi` |
-| `PT` | Португальский | Сан-Паулу | BRL | `ddc_cwicr_pt` |
-| `RU` | Русский | Санкт-Петербург | RUB | `ddc_cwicr_ru` |
-| `ZH` | Китайский | Шанхай | CNY | `ddc_cwicr_zh` |
-| `US`  | Английский | США | USD | `ddc_cwicr_us` |
-| `UK`  | Английский | Великобритания | GBP | `ddc_cwicr_uk` |
+| `AR` | Арабский | Дубай | AED | `ddc_ar_dubai` |
+| `DE` | Немецкий | Берлин | EUR | `ddc_de_berlin` |
+| `EN` | Английский | Торонто | CAD | `ddc_en_toronto` |
+| `ES` | Испанский | Барселона | EUR | `ddc_sp_barcelona` |
+| `FR` | Французский | Париж | EUR | `ddc_fr_paris` |
+| `HI` | Хинди | Мумбаи | INR | `ddc_hi_mumbai` |
+| `PT` | Португальский | Сан-Паулу | BRL | `ddc_pt_saopaulo` |
+| `RU` | Русский | Санкт-Петербург | RUB | `ddc_ru_stpetersburg` |
+| `ZH` | Китайский | Шанхай | CNY | `ddc_zh_shanghai` |
+| `US`  | Английский | США | USD | `ddc_usa_usd` |
+| `UK`  | Английский | Великобритания | GBP | `ddc_uk_gbp` |
 
 ---
 
@@ -922,29 +922,25 @@ project_YYYY-MM-DD.xls    ← Excel таблица
 
 Готовые к использованию Qdrant коллекции с OpenAI `text-embedding-3-large` эмбеддингами.
 
-### Релизы
+### Снапшоты Qdrant векторной базы данных
 
-Скачивайте из [GitHub Releases](https://github.com/datadrivenconstruction/OpenConstructionEstimate-DDC-CWICR/releases).
+Снапшоты находятся в соответствующих языковых папках этого репозитория (хранятся через Git LFS).
 
-| Язык | Регион | CSV файлы | Qdrant Snapshot |
-|------|--------|-----------|-----------------|
-| 🇸🇦 Арабский | Дубай | `AR_DUBAI_*.csv` | `AR_DUBAI_*_EMBEDDINGS_3072_DDC.snapshot` |
-| 🇨🇳 Китайский | Шанхай | `ZH_SHANGHAI_*.csv` | `ZH_SHANGHAI_*_EMBEDDINGS_3072_DDC.snapshot` |
-| 🇩🇪 Немецкий | Берлин | `DE_BERLIN_*.csv` | `DE_BERLIN_*_EMBEDDINGS_3072_DDC.snapshot` |
-| 🇬🇧 Английский | Торонто | `EN_TORONTO_*.csv` | `EN_TORONTO_*_EMBEDDINGS_3072_DDC.snapshot` |
-| 🇪🇸 Испанский | Барселона | `ES_BARCELONA_*.csv` | `ES_BARCELONA_*_EMBEDDINGS_3072_DDC.snapshot` |
-| 🇫🇷 Французский | Париж | `FR_PARIS_*.csv` | `FR_PARIS_*_EMBEDDINGS_3072_DDC.snapshot` |
-| 🇮🇳 Хинди | Мумбаи | `HI_MUMBAI_*.csv` | `HI_MUMBAI_*_EMBEDDINGS_3072_DDC.snapshot` |
-| 🇧🇷 Португальский | Сан-Паулу | `PT_SAOPAULO_*.csv` | `PT_SAOPAULO_*_EMBEDDINGS_3072_DDC.snapshot` |
-| 🇷🇺 Русский | Санкт-Петербург | `RU_SPB_*.csv` | `RU_SPB_*_EMBEDDINGS_3072_DDC.snapshot` |
-
-<a href="https://github.com/datadrivenconstruction/OpenConstructionEstimate-DDC-CWICR/releases/tag/v0.1.0">
-  <img src="https://img.shields.io/badge/📥_Скачать_v0.1.0-GitHub_Releases-181717?style=for-the-badge&logo=github" alt="Download v0.1.0">
-</a>
+| Язык | Регион | Снапшот Qdrant |
+|------|--------|----------------|
+| 🇸🇦 Арабский | Дубай | `AR___DDC_CWICR/AR_DUBAI_workitems_costs_resources_EMBEDDINGS_3072_DDC_CWICR.snapshot` |
+| 🇨🇳 Китайский | Шанхай | `ZH___DDC_CWICR/ZH_SHANGHAI_workitems_costs_resources_EMBEDDINGS_3072_DDC_CWICR.snapshot` |
+| 🇩🇪 Немецкий | Берлин | `DE___DDC_CWICR/DE_BERLIN_workitems_costs_resources_EMBEDDINGS_3072_DDC_CWICR.snapshot` |
+| 🇬🇧 Английский | Торонто | `EN___DDC_CWICR/EN_TORONTO_workitems_costs_resources_EMBEDDINGS_3072_DDC_CWICR.snapshot` |
+| 🇪🇸 Испанский | Барселона | `ES___DDC_CWICR/ES_BARCELONA_workitems_costs_resources_EMBEDDINGS_3072_DDC_CWICR.snapshot` |
+| 🇫🇷 Французский | Париж | `FR___DDC_CWICR/FR_PARIS_workitems_costs_resources_EMBEDDINGS_3072_DDC_CWICR.snapshot` |
+| 🇮🇳 Хинди | Мумбаи | `HI___DDC_CWICR/HI_MUMBAI_workitems_costs_resources_EMBEDDINGS_3072_DDC_CWICR.snapshot` |
+| 🇧🇷 Португальский | Сан-Паулу | `PT___DDC_CWICR/PT_SAOPAULO_workitems_costs_resources_EMBEDDINGS_3072_DDC_CWICR.snapshot` |
+| 🇷🇺 Русский | Санкт-Петербург | `RU___DDC_CWICR/RU_SPB_workitems_costs_resources_EMBEDDINGS_3072_DDC_CWICR.snapshot` |
 
 ### Коллекции
 
-🇸🇦 `ddc_cwicr_ar` · 🇨🇳 `ddc_cwicr_zh` · 🇩🇪 `ddc_cwicr_de` · 🇬🇧 `ddc_cwicr_en` · 🇪🇸 `ddc_cwicr_es` · 🇫🇷 `ddc_cwicr_fr` · 🇮🇳 `ddc_cwicr_hi` · 🇧🇷 `ddc_cwicr_pt` · 🇷🇺 `ddc_cwicr_ru` · 🇺🇸 `ddc_cwicr_us` (США) · 🇬🇧 `ddc_cwicr_uk` (Великобритания)
+🇸🇦 `ddc_ar_dubai` · 🇨🇳 `ddc_zh_shanghai` · 🇩🇪 `ddc_de_berlin` · 🇬🇧 `ddc_en_toronto` · 🇪🇸 `ddc_sp_barcelona` · 🇫🇷 `ddc_fr_paris` · 🇮🇳 `ddc_hi_mumbai` · 🇧🇷 `ddc_pt_saopaulo` · 🇷🇺 `ddc_ru_stpetersburg` · 🇺🇸 `ddc_usa_usd` (США) · 🇬🇧 `ddc_uk_gbp` (Великобритания)
 
 Каждая коллекция содержит **55,719 векторов**.
 
@@ -964,9 +960,9 @@ services:
 ```bash
 docker-compose up -d
 
-curl -X POST "http://localhost:6333/collections/ddc_cwicr_ru/snapshots/upload" \
+curl -X POST "http://localhost:6333/collections/ddc_ru_stpetersburg/snapshots/upload" \
   -H "Content-Type: multipart/form-data" \
-  -F "snapshot=@ddc_cwicr_ru.snapshot"
+  -F "snapshot=@RU___DDC_CWICR/RU_SPB_workitems_costs_resources_EMBEDDINGS_3072_DDC_CWICR.snapshot"
 ```
 
 ---
@@ -1102,7 +1098,7 @@ embedding = openai.embeddings.create(
 ).data[0].embedding
 
 results = client.search(
-    collection_name="ddc_cwicr_ru",
+    collection_name="ddc_ru_stpetersburg",
     query_vector=embedding,
     limit=5
 )

@@ -14,7 +14,7 @@ df = pd.read_parquet("DDC_CWICR_EN.parquet")
 # Semantic search
 client = QdrantClient("localhost", port=6333)
 results = client.search(
-    collection_name="ddc_cwicr_en",
+    collection_name="ddc_en_toronto",
     query_vector=embedding,
     limit=10
 )
@@ -49,19 +49,19 @@ results = client.search(
 
 ## Languages & Regional Pricing
 
-| Code | Language | Region | Currency | Collection |
-|------|----------|--------|----------|------------|
-| `AR` | Arabic | Dubai | AED | `ddc_cwicr_ar` |
-| `ZH` | Chinese | Shanghai | CNY | `ddc_cwicr_zh` |
-| `DE` | German | Berlin | EUR | `ddc_cwicr_de` |
-| `EN` | English | Toronto | CAD | `ddc_cwicr_en` |
-| `ES` | Spanish | Barcelona | EUR | `ddc_cwicr_es` |
-| `FR` | French | Paris | EUR | `ddc_cwicr_fr` |
-| `HI` | Hindi | Mumbai | INR | `ddc_cwicr_hi` |
-| `PT` | Portuguese | São Paulo | BRL | `ddc_cwicr_pt` |
-| `RU` | Russian | St. Petersburg | RUB | `ddc_cwicr_ru` |
-| `US` | English | USA | USD | `ddc_cwicr_us` |
-| `UK` | English | UK | GBP | `ddc_cwicr_uk` |
+| Code | Language | Region | Currency | Collection | Snapshot Path |
+|------|----------|--------|----------|------------|---------------|
+| `AR` | Arabic | Dubai | AED | `ddc_ar_dubai` | `AR___DDC_CWICR/AR_DUBAI_workitems_costs_resources_EMBEDDINGS_3072_DDC_CWICR.snapshot` |
+| `ZH` | Chinese | Shanghai | CNY | `ddc_zh_shanghai` | `ZH___DDC_CWICR/ZH_SHANGHAI_workitems_costs_resources_EMBEDDINGS_3072_DDC_CWICR.snapshot` |
+| `DE` | German | Berlin | EUR | `ddc_de_berlin` | `DE___DDC_CWICR/DE_BERLIN_workitems_costs_resources_EMBEDDINGS_3072_DDC_CWICR.snapshot` |
+| `EN` | English | Toronto | CAD | `ddc_en_toronto` | `EN___DDC_CWICR/EN_TORONTO_workitems_costs_resources_EMBEDDINGS_3072_DDC_CWICR.snapshot` |
+| `ES` | Spanish | Barcelona | EUR | `ddc_sp_barcelona` | `ES___DDC_CWICR/ES_BARCELONA_workitems_costs_resources_EMBEDDINGS_3072_DDC_CWICR.snapshot` |
+| `FR` | French | Paris | EUR | `ddc_fr_paris` | `FR___DDC_CWICR/FR_PARIS_workitems_costs_resources_EMBEDDINGS_3072_DDC_CWICR.snapshot` |
+| `HI` | Hindi | Mumbai | INR | `ddc_hi_mumbai` | `HI___DDC_CWICR/HI_MUMBAI_workitems_costs_resources_EMBEDDINGS_3072_DDC_CWICR.snapshot` |
+| `PT` | Portuguese | São Paulo | BRL | `ddc_pt_saopaulo` | `PT___DDC_CWICR/PT_SAOPAULO_workitems_costs_resources_EMBEDDINGS_3072_DDC_CWICR.snapshot` |
+| `RU` | Russian | St. Petersburg | RUB | `ddc_ru_stpetersburg` | `RU___DDC_CWICR/RU_STPETERSBURG_workitems_costs_resources_EMBEDDINGS_3072_DDC_CWICR.snapshot` |
+| `US` | English | USA | USD | `ddc_usa_usd` | `US___DDC_CWICR/US_USD_workitems_costs_resources_EMBEDDINGS_3072_DDC_CWICR.snapshot` |
+| `UK` | English | UK | GBP | `ddc_uk_gbp` | `UK___DDC_CWICR/UK_GBP_workitems_costs_resources_EMBEDDINGS_3072_DDC_CWICR.snapshot` |
 
 ## Core Methodology
 
@@ -139,7 +139,7 @@ embedding = response.data[0].embedding
 # Search
 client = QdrantClient("localhost", port=6333)
 results = client.search(
-    collection_name="ddc_cwicr_en",
+    collection_name="ddc_en_toronto",
     query_vector=embedding,
     limit=5
 )

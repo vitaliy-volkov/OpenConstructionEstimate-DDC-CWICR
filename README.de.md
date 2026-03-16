@@ -151,7 +151,7 @@
 
 ### 🔍 Vektordatenbank
 - [Vektordatenbank](#vektordatenbank) — Semantische Suche mit Qdrant
-- [Releases](#releases) — Snapshots herunterladen
+- [Qdrant-Snapshots der Vektordatenbank](#qdrant-snapshots-der-vektordatenbank) — Snapshots herunterladen
 - [Collections](#collections) — 11 Sprach-Collections
 - [Docker-Bereitstellung](#docker-bereitstellung) — Selbst gehostete Einrichtung
 
@@ -407,7 +407,7 @@ client = QdrantClient("ihre-qdrant-instanz", port=6333)
 
 # Semantische Suche
 results = client.search(
-    collection_name="ddc_cwicr_de",  # oder en, ru, zh, etc.
+    collection_name="ddc_de_berlin",  # oder ddc_en_toronto, ddc_ru_stpetersburg, ddc_zh_shanghai, etc.
     query_vector=ihr_embedding,
     limit=10
 )
@@ -1085,12 +1085,12 @@ Im **🔑 TOKEN** Knoten Ihre API-Schlüssel setzen:
 
 ### Schritt 3: DDC CWICR in Qdrant laden
 
-Snapshot von [Releases](#releases) herunterladen und importieren:
+Snapshot aus dem entsprechenden Sprachordner herunterladen (gespeichert via Git LFS) und importieren:
 
 ```bash
-curl -X POST "http://localhost:6333/collections/ddc_cwicr_de/snapshots/upload" \
+curl -X POST "http://localhost:6333/collections/ddc_de_berlin/snapshots/upload" \
   -H "Content-Type: multipart/form-data" \
-  -F "snapshot=@DE_BERLIN_workitems_EMBEDDINGS_3072_DDC.snapshot"
+  -F "snapshot=@EN___DDC_CWICR/EN_TORONTO_workitems_costs_resources_EMBEDDINGS_3072_DDC_CWICR.snapshot"
 ```
 
 ### Schritt 4: Aktivieren & Testen
@@ -1140,19 +1140,19 @@ environment:
 
 ## 🌍 Unterstützte Sprachen & Preisniveaus
 
-| Code  | Sprache     | Preisniveau     | Währung | Qdrant Collection   |
-|-------|-------------|-----------------|---------|---------------------|
-| `AR`  | Arabisch    | Dubai           | AED     | `ddc_cwicr_ar`      |
-| `DE`  | Deutsch     | Berlin          | EUR     | `ddc_cwicr_de`      |
-| `EN`  | Englisch    | Toronto         | CAD     | `ddc_cwicr_en`      |
-| `ES`  | Spanisch    | Barcelona       | EUR     | `ddc_cwicr_es`      |
-| `FR`  | Französisch | Paris           | EUR     | `ddc_cwicr_fr`      |
-| `HI`  | Hindi       | Mumbai          | INR     | `ddc_cwicr_hi`      |
-| `PT`  | Portugiesisch| São Paulo      | BRL     | `ddc_cwicr_pt`      |
-| `RU`  | Russisch    | St. Petersburg  | RUB     | `ddc_cwicr_ru`      |
-| `ZH`  | Chinesisch  | Shanghai        | CNY     | `ddc_cwicr_zh`      |
-| `US`  | Englisch    | USA             | USD     | `ddc_cwicr_us`      |
-| `UK`  | Englisch    | UK              | GBP     | `ddc_cwicr_uk`      |
+| Code  | Sprache     | Preisniveau     | Währung | Qdrant Collection         |
+|-------|-------------|-----------------|---------|---------------------------|
+| `AR`  | Arabisch    | Dubai           | AED     | `ddc_ar_dubai`            |
+| `DE`  | Deutsch     | Berlin          | EUR     | `ddc_de_berlin`           |
+| `EN`  | Englisch    | Toronto         | CAD     | `ddc_en_toronto`          |
+| `ES`  | Spanisch    | Barcelona       | EUR     | `ddc_sp_barcelona`        |
+| `FR`  | Französisch | Paris           | EUR     | `ddc_fr_paris`            |
+| `HI`  | Hindi       | Mumbai          | INR     | `ddc_hi_mumbai`           |
+| `PT`  | Portugiesisch| São Paulo      | BRL     | `ddc_pt_saopaulo`         |
+| `RU`  | Russisch    | St. Petersburg  | RUB     | `ddc_ru_stpetersburg`     |
+| `ZH`  | Chinesisch  | Shanghai        | CNY     | `ddc_zh_shanghai`         |
+| `US`  | Englisch    | USA             | USD     | `ddc_usa_usd`             |
+| `UK`  | Englisch    | UK              | GBP     | `ddc_uk_gbp`              |
 
 ---
 
@@ -1243,29 +1243,25 @@ Diese Qdrant Collections können über moderne Automatisierungs- und Integration
 
 ---
 
-### Releases
+### Qdrant-Snapshots der Vektordatenbank
 
-QDRANT- und CSV-Datensätze (Dateien größer als 1 Gigabyte) von [GitHub Releases](https://github.com/datadrivenconstruction/OpenConstructionEstimate-DDC-CWICR/releases) herunterladen.
+Die Snapshots befinden sich jetzt direkt in den entsprechenden Sprachordnern dieses Repositories (gespeichert via Git LFS), nicht mehr in GitHub Releases.
 
-| Sprache         | Region         | CSV-Dateien           | Qdrant Snapshot                            |
-|-----------------|----------------|-----------------------|--------------------------------------------|
-| 🇸🇦 Arabisch    | Dubai          | `AR_DUBAI_*.csv`      | `AR_DUBAI_*_EMBEDDINGS_3072_DDC.snapshot`   |
-| 🇨🇳 Chinesisch  | Shanghai       | `ZH_SHANGHAI_*.csv`   | `ZH_SHANGHAI_*_EMBEDDINGS_3072_DDC.snapshot`|
-| 🇩🇪 Deutsch     | Berlin         | `DE_BERLIN_*.csv`     | `DE_BERLIN_*_EMBEDDINGS_3072_DDC.snapshot`  |
-| 🇬🇧 Englisch    | Toronto        | `EN_TORONTO_*.csv`    | `EN_TORONTO_*_EMBEDDINGS_3072_DDC.snapshot` |
-| 🇪🇸 Spanisch    | Barcelona      | `ES_BARCELONA_*.csv`  | `ES_BARCELONA_*_EMBEDDINGS_3072_DDC.snapshot`|
-| 🇫🇷 Französisch | Paris          | `FR_PARIS_*.csv`      | `FR_PARIS_*_EMBEDDINGS_3072_DDC.snapshot`   |
-| 🇮🇳 Hindi       | Mumbai         | `HI_MUMBAI_*.csv`     | `HI_MUMBAI_*_EMBEDDINGS_3072_DDC.snapshot`  |
-| 🇧🇷 Portugiesisch| São Paulo     | `PT_SAOPAULO_*.csv`   | `PT_SAOPAULO_*_EMBEDDINGS_3072_DDC.snapshot`|
-| 🇷🇺 Russisch    | St. Petersburg | `RU_SPB_*.csv`        | `RU_SPB_*_EMBEDDINGS_3072_DDC.snapshot`     |
-
-<a href="https://github.com/datadrivenconstruction/OpenConstructionEstimate-DDC-CWICR/releases/tag/v0.1.0">
-  <img src="https://img.shields.io/badge/📥_Download_v0.1.0-GitHub_Releases-181717?style=for-the-badge&logo=github" alt="Download v0.1.0">
-</a>
+| Sprache         | Region         | Snapshot-Datei (im Sprachordner)                                                          |
+|-----------------|----------------|-------------------------------------------------------------------------------------------|
+| 🇸🇦 Arabisch    | Dubai          | `AR___DDC_CWICR/AR_DUBAI_workitems_costs_resources_EMBEDDINGS_3072_DDC_CWICR.snapshot`    |
+| 🇨🇳 Chinesisch  | Shanghai       | `ZH___DDC_CWICR/ZH_SHANGHAI_workitems_costs_resources_EMBEDDINGS_3072_DDC_CWICR.snapshot` |
+| 🇩🇪 Deutsch     | Berlin         | `DE___DDC_CWICR/DE_BERLIN_workitems_costs_resources_EMBEDDINGS_3072_DDC_CWICR.snapshot`   |
+| 🇬🇧 Englisch    | Toronto        | `EN___DDC_CWICR/EN_TORONTO_workitems_costs_resources_EMBEDDINGS_3072_DDC_CWICR.snapshot`  |
+| 🇪🇸 Spanisch    | Barcelona      | `ES___DDC_CWICR/ES_BARCELONA_workitems_costs_resources_EMBEDDINGS_3072_DDC_CWICR.snapshot`|
+| 🇫🇷 Französisch | Paris          | `FR___DDC_CWICR/FR_PARIS_workitems_costs_resources_EMBEDDINGS_3072_DDC_CWICR.snapshot`    |
+| 🇮🇳 Hindi       | Mumbai         | `HI___DDC_CWICR/HI_MUMBAI_workitems_costs_resources_EMBEDDINGS_3072_DDC_CWICR.snapshot`   |
+| 🇧🇷 Portugiesisch| São Paulo     | `PT___DDC_CWICR/PT_SAOPAULO_workitems_costs_resources_EMBEDDINGS_3072_DDC_CWICR.snapshot` |
+| 🇷🇺 Russisch    | St. Petersburg | `RU___DDC_CWICR/RU_STPETERSBURG_workitems_costs_resources_EMBEDDINGS_3072_DDC_CWICR.snapshot` |
 
 ### Collections
 
-🇸🇦 `ddc_cwicr_ar` (Arabisch) · 🇨🇳 `ddc_cwicr_zh` (Chinesisch) · 🇩🇪 `ddc_cwicr_de` (Deutsch) · 🇬🇧 `ddc_cwicr_en` (Englisch) · 🇪🇸 `ddc_cwicr_es` (Spanisch) · 🇫🇷 `ddc_cwicr_fr` (Französisch) · 🇮🇳 `ddc_cwicr_hi` (Hindi) · 🇧🇷 `ddc_cwicr_pt` (Portugiesisch) · 🇷🇺 `ddc_cwicr_ru` (Russisch) · 🇺🇸 `ddc_cwicr_us` (USA) · 🇬🇧 `ddc_cwicr_uk` (UK)
+🇸🇦 `ddc_ar_dubai` (Arabisch) · 🇨🇳 `ddc_zh_shanghai` (Chinesisch) · 🇩🇪 `ddc_de_berlin` (Deutsch) · 🇬🇧 `ddc_en_toronto` (Englisch) · 🇪🇸 `ddc_sp_barcelona` (Spanisch) · 🇫🇷 `ddc_fr_paris` (Französisch) · 🇮🇳 `ddc_hi_mumbai` (Hindi) · 🇧🇷 `ddc_pt_saopaulo` (Portugiesisch) · 🇷🇺 `ddc_ru_stpetersburg` (Russisch) · 🇺🇸 `ddc_usa_usd` (USA) · 🇬🇧 `ddc_uk_gbp` (UK)
 
 Jede Collection enthält **55.719 Vektoren** mit vollständigen Payload-Metadaten.
 
@@ -1296,9 +1292,9 @@ volumes:
 docker-compose up -d
 
 # Snapshot importieren
-curl -X POST "http://localhost:6333/collections/ddc_cwicr_de/snapshots/upload" \
+curl -X POST "http://localhost:6333/collections/ddc_de_berlin/snapshots/upload" \
   -H "Content-Type: multipart/form-data" \
-  -F "snapshot=@ddc_cwicr_de.snapshot"
+  -F "snapshot=@DE___DDC_CWICR/DE_BERLIN_workitems_costs_resources_EMBEDDINGS_3072_DDC_CWICR.snapshot"
 
 # Dashboard: http://localhost:6333/dashboard
 ```
@@ -1441,7 +1437,7 @@ embedding = openai.embeddings.create(
 ).data[0].embedding
 
 results = client.search(
-    collection_name="ddc_cwicr_de",
+    collection_name="ddc_de_berlin",
     query_vector=embedding,
     limit=5
 )
@@ -1457,7 +1453,7 @@ from qdrant_client.models import Filter, FieldCondition, MatchValue, Range
 
 # Nach Abteilung
 results = client.search(
-    collection_name="ddc_cwicr_de",
+    collection_name="ddc_de_berlin",
     query_vector=embedding,
     query_filter=Filter(must=[
         FieldCondition(key="department_name", match=MatchValue(value="Beton und Stahlbeton"))
@@ -1467,7 +1463,7 @@ results = client.search(
 
 # Nach Preisbereich
 results = client.search(
-    collection_name="ddc_cwicr_de",
+    collection_name="ddc_de_berlin",
     query_vector=embedding,
     query_filter=Filter(must=[
         FieldCondition(key="price_est_median", range=Range(gte=1000, lte=50000))

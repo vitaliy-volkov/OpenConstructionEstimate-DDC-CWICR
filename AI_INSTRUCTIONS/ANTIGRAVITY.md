@@ -179,32 +179,32 @@ spec:
           mountPath: /qdrant/storage
 ```
 
-Load CWICR snapshot:
+Load CWICR snapshot (snapshots are stored in the repository language folders via Git LFS):
 ```bash
-# Download snapshot
-gsutil cp gs://bucket/ddc_cwicr_en.snapshot ./
+# Snapshot is located in the repository:
+# EN___DDC_CWICR/EN_TORONTO_workitems_costs_resources_EMBEDDINGS_3072_DDC_CWICR.snapshot
 
 # Import to Qdrant
-curl -X POST "http://localhost:6333/collections/ddc_cwicr_en/snapshots/upload" \
+curl -X POST "http://localhost:6333/collections/ddc_en_toronto/snapshots/upload" \
   -H "Content-Type: multipart/form-data" \
-  -F "snapshot=@ddc_cwicr_en.snapshot"
+  -F "snapshot=@EN___DDC_CWICR/EN_TORONTO_workitems_costs_resources_EMBEDDINGS_3072_DDC_CWICR.snapshot"
 ```
 
 ## Languages & Collections
 
-| Language | Collection | Region |
-|----------|------------|--------|
-| English | `ddc_cwicr_en` | Toronto |
-| German | `ddc_cwicr_de` | Berlin |
-| French | `ddc_cwicr_fr` | Paris |
-| Spanish | `ddc_cwicr_es` | Barcelona |
-| Russian | `ddc_cwicr_ru` | St. Petersburg |
-| Chinese | `ddc_cwicr_zh` | Shanghai |
-| Arabic | `ddc_cwicr_ar` | Dubai |
-| Portuguese | `ddc_cwicr_pt` | São Paulo |
-| Hindi | `ddc_cwicr_hi` | Mumbai |
-| English (USA) | `ddc_cwicr_us` | USA |
-| English (UK) | `ddc_cwicr_uk` | UK |
+| Language | Collection | Region | Snapshot Path |
+|----------|------------|--------|---------------|
+| English | `ddc_en_toronto` | Toronto | `EN___DDC_CWICR/EN_TORONTO_workitems_costs_resources_EMBEDDINGS_3072_DDC_CWICR.snapshot` |
+| German | `ddc_de_berlin` | Berlin | `DE___DDC_CWICR/DE_BERLIN_workitems_costs_resources_EMBEDDINGS_3072_DDC_CWICR.snapshot` |
+| French | `ddc_fr_paris` | Paris | `FR___DDC_CWICR/FR_PARIS_workitems_costs_resources_EMBEDDINGS_3072_DDC_CWICR.snapshot` |
+| Spanish | `ddc_sp_barcelona` | Barcelona | `ES___DDC_CWICR/ES_BARCELONA_workitems_costs_resources_EMBEDDINGS_3072_DDC_CWICR.snapshot` |
+| Russian | `ddc_ru_stpetersburg` | St. Petersburg | `RU___DDC_CWICR/RU_STPETERSBURG_workitems_costs_resources_EMBEDDINGS_3072_DDC_CWICR.snapshot` |
+| Chinese | `ddc_zh_shanghai` | Shanghai | `ZH___DDC_CWICR/ZH_SHANGHAI_workitems_costs_resources_EMBEDDINGS_3072_DDC_CWICR.snapshot` |
+| Arabic | `ddc_ar_dubai` | Dubai | `AR___DDC_CWICR/AR_DUBAI_workitems_costs_resources_EMBEDDINGS_3072_DDC_CWICR.snapshot` |
+| Portuguese | `ddc_pt_saopaulo` | São Paulo | `PT___DDC_CWICR/PT_SAOPAULO_workitems_costs_resources_EMBEDDINGS_3072_DDC_CWICR.snapshot` |
+| Hindi | `ddc_hi_mumbai` | Mumbai | `HI___DDC_CWICR/HI_MUMBAI_workitems_costs_resources_EMBEDDINGS_3072_DDC_CWICR.snapshot` |
+| English (USA) | `ddc_usa_usd` | USA | `US___DDC_CWICR/US_USD_workitems_costs_resources_EMBEDDINGS_3072_DDC_CWICR.snapshot` |
+| English (UK) | `ddc_uk_gbp` | UK | `UK___DDC_CWICR/UK_GBP_workitems_costs_resources_EMBEDDINGS_3072_DDC_CWICR.snapshot` |
 
 ## n8n Workflows
 
@@ -222,5 +222,5 @@ Production-ready automation templates:
 ## Resources
 
 - **Live Demo**: [openconstructionestimate.com](https://openconstructionestimate.com)
-- **Data Downloads**: [GitHub Releases](https://github.com/datadrivenconstruction/OpenConstructionEstimate-DDC-CWICR/releases)
+- **Data & Snapshots**: Stored directly in the repository language folders via Git LFS (e.g., `EN___DDC_CWICR/`)
 - **CAD/BIM Tools**: [cad2data Repository](https://github.com/datadrivenconstruction/cad2data-Revit-IFC-DWG-DGN-pipeline-with-conversion-validation-qto)
