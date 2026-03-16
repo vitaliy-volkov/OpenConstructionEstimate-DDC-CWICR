@@ -1088,12 +1088,12 @@ In the **🔑 TOKEN** node, set your API keys:
 
 ### Step 3: Load DDC CWICR to Qdrant
 
-Download snapshot from [Releases](#releases) and import:
+Download snapshot from the `qdrant_snapshots/` folder in this repository and import:
 
 ```bash
-curl -X POST "http://localhost:6333/collections/ddc_cwicr_en/snapshots/upload" \
+curl -X POST "http://localhost:6333/collections/ddc_en_toronto/snapshots/upload" \
   -H "Content-Type: multipart/form-data" \
-  -F "snapshot=@EN_TORONTO_workitems_EMBEDDINGS_3072_DDC.snapshot"
+  -F "snapshot=@qdrant_snapshots/ddc_en_toronto.snapshot"
 ```
 
 ### Step 4: Activate & Test
@@ -1246,31 +1246,29 @@ These Qdrant collections can be connected to application via modern automation a
 
 ---
 
-### Releases
+### Qdrant Vector Database Snapshots
 
-Download QDRANT and CSV datasets (files larger than 1 gigabyte) from [GitHub Releases](https://github.com/datadrivenconstruction/OpenConstructionEstimate-DDC-CWICR/releases).
+All Qdrant snapshots are included in this repository under the `qdrant_snapshots/` folder (stored via Git LFS).
 
-| Language        | Region         | CSV Files             | Qdrant Snapshot                            |
-|-----------------|----------------|-----------------------|--------------------------------------------|
-| 🇸🇦 Arabic      | Dubai          | `AR_DUBAI_*.csv`      | `AR_DUBAI_*_EMBEDDINGS_3072_DDC.snapshot`   |
-| 🇨🇳 Chinese     | Shanghai       | `ZH_SHANGHAI_*.csv`   | `ZH_SHANGHAI_*_EMBEDDINGS_3072_DDC.snapshot`|
-| 🇩🇪 German      | Berlin         | `DE_BERLIN_*.csv`     | `DE_BERLIN_*_EMBEDDINGS_3072_DDC.snapshot`  |
-| 🇬🇧 English     | Toronto        | `EN_TORONTO_*.csv`    | `EN_TORONTO_*_EMBEDDINGS_3072_DDC.snapshot` |
-| 🇪🇸 Spanish     | Barcelona      | `ES_BARCELONA_*.csv`  | `ES_BARCELONA_*_EMBEDDINGS_3072_DDC.snapshot`|
-| 🇫🇷 French      | Paris          | `FR_PARIS_*.csv`      | `FR_PARIS_*_EMBEDDINGS_3072_DDC.snapshot`   |
-| 🇮🇳 Hindi       | Mumbai         | `HI_MUMBAI_*.csv`     | `HI_MUMBAI_*_EMBEDDINGS_3072_DDC.snapshot`  |
-| 🇧🇷 Portuguese  | São Paulo      | `PT_SAOPAULO_*.csv`   | `PT_SAOPAULO_*_EMBEDDINGS_3072_DDC.snapshot`|
-| 🇷🇺 Russian     | St. Petersburg | `RU_SPB_*.csv`        | `RU_SPB_*_EMBEDDINGS_3072_DDC.snapshot`     |
+| Language        | Region         | Qdrant Collection          | Snapshot File                    | Points  |
+|-----------------|----------------|----------------------------|----------------------------------|---------|
+| 🇸🇦 Arabic      | Dubai          | `ddc_ar_dubai`             | `ddc_ar_dubai.snapshot`          | 55,121  |
+| 🇩🇪 German      | Berlin         | `ddc_de_berlin`            | `ddc_de_berlin.snapshot`         | 55,719  |
+| 🇬🇧 English     | Toronto        | `ddc_en_toronto`           | `ddc_en_toronto.snapshot`        | 55,719  |
+| 🇪🇸 Spanish     | Barcelona      | `ddc_sp_barcelona`         | `ddc_sp_barcelona.snapshot`      | 55,719  |
+| 🇫🇷 French      | Paris          | `ddc_fr_paris`             | `ddc_fr_paris.snapshot`          | 55,719  |
+| 🇮🇳 Hindi       | Mumbai         | `ddc_hi_mumbai`            | `ddc_hi_mumbai.snapshot`         | 55,687  |
+| 🇧🇷 Portuguese  | São Paulo      | `ddc_pt_saopaulo`          | `ddc_pt_saopaulo.snapshot`       | 55,719  |
+| 🇷🇺 Russian     | St. Petersburg | `ddc_ru_stpetersburg`      | `ddc_ru_stpetersburg.snapshot`   | 55,719  |
+| 🇬🇧 UK          | GBP            | `ddc_uk_gbp`               | `ddc_uk_gbp.snapshot`            | 55,719  |
+| 🇺🇸 USA         | USD            | `ddc_usa_usd`              | `ddc_usa_usd.snapshot`           | 55,719  |
+| 🇨🇳 Chinese     | Shanghai       | `ddc_zh_shanghai`          | `ddc_zh_shanghai.snapshot`       | 55,719  |
 
-<a href="https://github.com/datadrivenconstruction/OpenConstructionEstimate-DDC-CWICR/releases/tag/v0.1.0">
-  <img src="https://img.shields.io/badge/📥_Download_v0.1.0-GitHub_Releases-181717?style=for-the-badge&logo=github" alt="Download v0.1.0">
-</a>
+All collections use **3072-dimensional OpenAI embeddings** with full payload metadata.
 
 ### Collections
 
-🇸🇦 `ddc_cwicr_ar` (Arabic) · 🇨🇳 `ddc_cwicr_zh` (Chinese) · 🇩🇪 `ddc_cwicr_de` (German) · 🇬🇧 `ddc_cwicr_en` (English) · 🇪🇸 `ddc_cwicr_es` (Spanish) · 🇫🇷 `ddc_cwicr_fr` (French) · 🇮🇳 `ddc_cwicr_hi` (Hindi) · 🇧🇷 `ddc_cwicr_pt` (Portuguese) · 🇷🇺 `ddc_cwicr_ru` (Russian) · 🇺🇸 `ddc_cwicr_us` (USA) · 🇬🇧 `ddc_cwicr_uk` (UK)
-
-Each collection contains **55,719 vectors** with full payload metadata.
+🇸🇦 `ddc_ar_dubai` · 🇩🇪 `ddc_de_berlin` · 🇬🇧 `ddc_en_toronto` · 🇪🇸 `ddc_sp_barcelona` · 🇫🇷 `ddc_fr_paris` · 🇮🇳 `ddc_hi_mumbai` · 🇧🇷 `ddc_pt_saopaulo` · 🇷🇺 `ddc_ru_stpetersburg` · 🇬🇧 `ddc_uk_gbp` · 🇺🇸 `ddc_usa_usd` · 🇨🇳 `ddc_zh_shanghai`
 
 ### Docker Deployment
 
@@ -1299,9 +1297,9 @@ volumes:
 docker-compose up -d
 
 # Import snapshot
-curl -X POST "http://localhost:6333/collections/ddc_cwicr_en/snapshots/upload" \
+curl -X POST "http://localhost:6333/collections/ddc_en_toronto/snapshots/upload" \
   -H "Content-Type: multipart/form-data" \
-  -F "snapshot=@ddc_cwicr_en.snapshot"
+  -F "snapshot=@qdrant_snapshots/ddc_en_toronto.snapshot"
 
 # Dashboard: http://localhost:6333/dashboard
 ```
