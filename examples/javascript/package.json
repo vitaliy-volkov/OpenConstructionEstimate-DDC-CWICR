@@ -1,0 +1,19 @@
+{
+  "name": "oce-ddc-cwicr-javascript-examples",
+  "version": "1.0.0",
+  "description": "JavaScript examples for OpenConstructionEstimate DDC-CWICR dataset",
+  "type": "module",
+  "scripts": {
+    "01:load": "node 01-load-and-explore/load_parquet.mjs",
+    "02:api": "node 02-api-quickstart/search_api.mjs",
+    "03:search": "node 03-semantic-search-qdrant/basic_search.mjs",
+    "04:estimate": "node 04-cost-estimation-text/estimate_from_text.mjs",
+    "05:nlquery": "node 05-natural-language-query/nl_query.mjs"
+  },
+  "dependencies": {
+    "@qdrant/js-client-rest": "^1.12.0",
+    "apache-arrow": "^18.0.0",
+    "openai": "^4.73.0",
+    "parquet-wasm": "^0.6.1"
+  }
+}

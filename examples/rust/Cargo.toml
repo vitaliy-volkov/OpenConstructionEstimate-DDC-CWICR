@@ -1,0 +1,6 @@
+[workspace]
+resolver = "2"
+members = [
+    "01-load-parquet",
+    "02-qdrant-search",
+]

@@ -1,0 +1,9 @@
+[package]
+name = "load-parquet"
+version = "0.1.0"
+edition = "2021"
+description = "Load and explore a CWICR Parquet file"
+
+[dependencies]
+parquet = "53"
+arrow = { version = "53", features = ["prettyprint"] }

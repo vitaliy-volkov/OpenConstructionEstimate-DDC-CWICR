@@ -1,0 +1,12 @@
+pandas
+pyarrow
+polars
+qdrant-client
+openai
+anthropic
+matplotlib
+plotly
+openpyxl
+python-dotenv
+langchain
+langchain-openai

@@ -10,3 +10,8 @@ desktop.ini
 # Temporary files
 *.tmp
 ~$*
+examples/python/08-data-analysis/charts/*.png
+examples/python/**/__pycache__/
+examples/javascript/node_modules/
+examples/rust/target/
+.env
