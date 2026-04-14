@@ -1,0 +1,3 @@
+source_name,city,resource_code,name,unit,price_min,price_max,price_avg,price_median,currency,effective_date,vendor,notes
+example_supplier,Москва,RES-000001,Цемент М500,т,6800,7600,7200,7200,RUB,2026-04-01,Поставщик-А,пример строки
+example_supplier,Москва,RES-000002,Песок карьерный,м3,900,1300,1100,1100,RUB,2026-04-01,Поставщик-А,пример строки
